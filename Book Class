@@ -1,0 +1,56 @@
+//humaejaz
+//481480
+//bsds/1-A
+
+package java_programs ;
+
+//creating a class for books
+public class Book{
+//creating attributes
+private int book_id ;
+private String title , author , genre ;
+private boolean availabilityS ;
+
+//constructor
+public Book(int book_id , String title , String author , String genre , boolean
+availabilityS){
+this.availabilityS = availabilityS ;
+this.book_id = book_id ;
+this.title = title ;
+this.author = author ;
+this.genre = genre ;
+}
+
+//creating getter and setter methods for all attributes
+
+public int getbook_id(){
+    return book_id ;
+}
+public void setbook_id(int book_id){
+    this.book_id = book_id ; 
+}
+public boolean getavailabilityS (){
+    return availabilityS ;
+}
+public void setavailabilityS(boolean availabilityS){
+    this.availabilityS = availabilityS ;
+}
+public String gettitle(){
+    return title ;
+}
+public void settitle(String title){
+    this.title = title ;
+}
+public String getauthor(){
+    return author ;
+}
+public void setauthor(String author){
+    this.author = author ;
+}
+public String getgenre(){
+    return genre ;
+}
+public void genre(String genre){
+    this.genre = genre ;
+}
+}
