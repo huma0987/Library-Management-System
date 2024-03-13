@@ -1,0 +1,47 @@
+package java_programs ;
+
+import java.util.ArrayList ;
+
+public class User {
+    //creating a class for user
+    private int user_id ; 
+    private static ArrayList<Book> booksBorrowed = new ArrayList<Book>() ;
+    private String name ;
+    int contactInfo;
+    
+    //constructor
+    public User(int user_id , String name , int contactInfo2 ){
+    this.user_id = user_id ;
+    booksBorrowed = new ArrayList<>() ;
+    this.name = name ;
+    this.contactInfo = contactInfo2 ;
+    }
+
+public int getuser_id(){
+    return user_id ;
+}
+public void setuser_id(int user_id){
+    this.user_id = user_id ;
+}
+public ArrayList<Book> getbooksBorrowed(){
+    return booksBorrowed;
+}
+public static void setbooksBorrowed(Book B1){
+    booksBorrowed.add(B1) ;
+}
+
+public String name(){
+    return name ;
+}
+public void setname(String name){
+    this.name = name ;
+}
+
+public int getContactInfo() {
+    return contactInfo;
+}
+public void setContactInfo(int contactInfo) {
+    this.contactInfo = contactInfo;
+}
+
+}
