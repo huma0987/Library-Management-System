@@ -1,49 +1,149 @@
-package java_programs ;
+package assignmentn1;    
 import java.util.Scanner ;
 
-public class Lms {
-        public static void main(String[] args) {
-            Library lib = new Library();
-            Scanner input = new Scanner(System.in);
-            int choice;
-            do {
-                System.out.println("\nLibrary Management System Menu:") ;
-                System.out.println("2. \tAdd a User\t") ;
-                System.out.println("1. \tAdd a Book\t") ;
-                System.out.println("5. \tReturn a Book\t") ;
-                System.out.println("3. \tDisplay Books\t") ;
-                System.out.println("4. \tBorrow a Book\t") ;
-                System.out.println("6. \tSearch Books by Title or Author\t");
-                System.out.println("7. \tExit\t") ;
-                System.out.print("\tPlease enter your choice: ") ;
-                choice = input.nextInt() ;
-                switch (choice) {
-                    case 1:
-                        lib.addBook();
-                        break;
-                    case 2:
-                        lib.addUser(lib , input);
-                        break;
-                    case 3:
-                        lib.displayBooks();
-                        break;
-                    case 4:
-                        lib.borrowBooks(lib , input);
-                        break;
-                    case 5:
-                        lib.returnBooks(lib , input);
-                        break;
-                    case 6:
-                        lib.searchBookbyId(lib , input);
-                        break;
-                    case 7:
-                        System.out.println("Exited!");
-                        break;
-                    default:
-                        System.out.println("INVALID! Please enter a number between 1 and 7.");
+public class Lms2 {
+   
+
+            public static void main(String[] args) {
+                Library2 lib = new Library2();
+                Scanner input = new Scanner(System.in);
+                int choice= input.nextInt();
+
+                while(choice!=7){
+               
+                System.out.println("What task do you want to perform? ");
+                int option = input.nextInt();
+    
+    
+                if (option == 6){
+                    System.out.println("1. Search book by book title.");
+                    System.out.println("2. Search book by book ID.");
+                    System.out.println("What task do you want to perform? ");
+                    int searchOption = input.nextInt();
+    
+                    switch (searchOption){
+                        case 1:
+                        {
+                            //searchBookbyTitle()
+                            System.out.println("Which book do you want to search for? Enter title of book:");
+                            String title = input.nextLine();
+                            Library2.searchBookbyTitle(title);
+    
+    
+                        }
+                        case 2:
+                        {
+                            //searchBookbyID()
+                            System.out.println("Which book do you want to search for? Enter ID of book:");
+                            int id = input.nextInt();
+                            Library2.searchBookbyID(id);
+                        }
+                    }
+    
                 }
-            } while (choice != 7);
+    
+                switch(option){
+                    case 1:
+                    {
+                        System.out.println("Enter ID of the book:");
+                        int ID = input.nextInt();
+                        System.out.println("Enter name of the book:");
+                        String title = input.nextLine();
+                        System.out.println("Enter author of the book:");
+                        String author = input.nextLine();
+                        System.out.println("Enter genre of the book:");
+                        String genre = input.nextLine();
+                        System.out.println("Enter availability status of the book:");
+                        boolean availabilityStatus = Boolean.parseBoolean(input.nextLine());
+    
+                        Library2.addBook(ID, title, author, genre, availabilityStatus);
+                        break;
+                    }
+    
+                    case 2:
+                    {
+                        System.out.println("Enter ID of user: ");
+                        int id = input.nextInt();
+                        System.out.println("Enter name of user: ");
+                        String name = input.nextLine();
+                        System.out.println("Enter contact no of user: ");
+                        int contactInfo = input.nextInt();
+    
+                        Library2.addUser(id, name, contactInfo);
+                        break;
+                    }
+                    case 3:
+                    {
+                        System.out.println("Enter your user ID:");
+                        int userID = input.nextInt();
+                        System.out.println("Whick book do you want to check out?");
+                        String bookName = input.nextLine();
+    
+                        checkoutBooks(userID, bookName);
+                        break;
+                    }
+                    case 4:
+                    {
+                        System.out.println("Enter user ID:");
+                        int userID = input.nextInt();
+    
+                        System.out.println("Which book do you want to return?");
+                        String returnBook = input.nextLine();
+                        Bookreturn(userID, returnBook);
+                        break;
+    
+                    }
+                    case 5:
+                    {
+                        Library2.displayBook();
+                        break;
+                    }
+                    default:
+                    {
+                        System.out.println("Invalid option. Please choose a valid option.");
+                        break;
+    
+                    }
+    
+    
+    
+                }
+            }
             input.close();
         }
-       
-    }
+
+            private static void checkoutBooks(int userID, String bookName) {
+                  for (Book2 book : Library2.B1){
+    
+                if (userID == book.getbook_id() && bookName.equals(book.gettitle()) && book.getavailabilityS()){
+                    System.out.println("Book borrowed successfully!");
+                    book.setavailabilityS(false);
+                    //book.setAvailabilityStatus(false);
+    
+                    //users.borrowedBooks(bookName);
+                    Library2.U1.get(userID).getbooksBorrowed().add(book);
+                    return;
+                }
+            }
+            System.out.println("Unable to borrow the book. Please check user ID, book name or availability. Try again later:)");
+    
+        }
+
+            private static void Bookreturn(int userID, String returnBook) {
+                  //this.borrowedBooks = new ArrayList<>();
+            for (Book2 book : Library2.B1){
+    
+                if (userID == book.getbook_id() && returnBook.equals(book.gettitle()) && book.getavailabilityS()){
+                    System.out.println("Book borrowed successfully!");
+                    book.setavailabilityS(false);
+                    //book.setAvailabilityStatus(false);
+    
+                    //users.borrowedBooks(bookName);
+                    Library2.U1.get(userID).getbooksBorrowed().add(book);
+                    return;
+                }
+            }
+            System.out.println("Unable to borrow the book. Please check user ID, book name or availability. Try again later:)");
+    
+        }
+            }
