@@ -4,15 +4,13 @@
 
 package java_programs ;
 
-//creating a class for books
-public class Book{
 //creating attributes
 private int book_id ;
 private String title , author , genre ;
 private boolean availabilityS ;
 
 //constructor
-public Book(int book_id , String title , String author , String genre , boolean
+public Book2(int book_id , String title , String author , String genre , boolean
 availabilityS){
 this.availabilityS = availabilityS ;
 this.book_id = book_id ;
@@ -53,4 +51,10 @@ public String getgenre(){
 public void genre(String genre){
     this.genre = genre ;
 }
+
+
+public static void getBorrowedBooks() {
+    
+}
+
 }
