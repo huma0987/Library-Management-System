@@ -3,14 +3,15 @@ package java_programs ;
 import java.util.ArrayList ;
 
 public class User {
+
     //creating a class for user
     private int user_id ; 
-    private static ArrayList<Book> booksBorrowed = new ArrayList<Book>() ;
+    private ArrayList<Book2> booksBorrowed = new ArrayList<Book2>() ;
     private String name ;
     int contactInfo;
     
     //constructor
-    public User(int user_id , String name , int contactInfo2 ){
+    public User2(int user_id , String name , int contactInfo2 ){
     this.user_id = user_id ;
     booksBorrowed = new ArrayList<>() ;
     this.name = name ;
@@ -23,12 +24,13 @@ public int getuser_id(){
 public void setuser_id(int user_id){
     this.user_id = user_id ;
 }
-public ArrayList<Book> getbooksBorrowed(){
+public ArrayList<Book2> getbooksBorrowed(){
     return booksBorrowed;
 }
-public static void setbooksBorrowed(Book B1){
-    booksBorrowed.add(B1) ;
-}
+
+public void setBorrowedBooks(ArrayList<Book1> borrowedBooks) {
+        this.booksBorrowed = booksBorrowed;
+    }
 
 public String name(){
     return name ;
