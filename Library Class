@@ -1,192 +1,121 @@
 package java_programs ;
 import java.util.ArrayList ;
 
-public class Library{
-   
-    private static ArrayList<Book> B1 ;
-    private static ArrayList<User> U1 ;
-    //constructor
-    public Library() {
-    this.B1 = new ArrayList<>() ;
-    this.U1 = new ArrayList<>() ;
-    }
-     //add books and users
-     public void addBooks(Book Book) {
-        B1.add(Book);
-    }
+public class Library2 {
 
-    public void addUsers(User User) {
-        U1.add(User);
+        static ArrayList<Book2> B1 ;
+        static ArrayList<User2> U1 ;
+        //constructor
+        public Library2() {
+        this.B1 = new ArrayList<>() ;
+        this.U1 = new ArrayList<>() ;
+        }
+         //add books and users
+         public void addBooks(Book2 Book) {
+            B1.add(Book);
+        }
+    
+        public void addUsers(User2 User) {
+            U1.add(User);
+        }
+        
+        //search for books by title or author
+    
+        public ArrayList<Book2> searchBooks(String title_author) {
+            ArrayList<Book2> results = new ArrayList<>();
+            for (Book2 book : B1) {
+                if (book.gettitle().toLowerCase().contains(title_author.toLowerCase()) ||
+                        book.getauthor().toLowerCase().contains(title_author.toLowerCase())) {
+                    results.add(book);
+                }
+            }
+            return results;
+        }
+        
+        // Method to return a book
+        public static void Bookreturn(int userID, String returnBook){
+            for (Book2 book : Library2.B1) {
+                if (userID == book.getbook_id() && returnBook.equals(book.gettitle())){
+                    System.out.println("Book returned successfully by user id "+ userID + "  " + returnBook );
+                    Library2.U1.get(userID).getbooksBorrowed().remove(book);
+                    return;
+                }
+            }
+            System.out.println("Unable to return the book. Please check user ID, book name. Try again later:)");
+        }
+        
+          
+    
+        //display books
+        public void displayBooks() {
+            System.out.println("Books in the library:");
+            for (Book2 book : B1) {
+                System.out.println(book.getbook_id() + ": " + book.gettitle() + " by " + book.getauthor() +
+                        " - Genre: " + book.getgenre() + ", Available: " + (book.getavailabilityS() ? "Yes" : "No"));
+            }
+        }
+    
+        public static Book2 searchBookbyTitle(String title){
+            for (Book2 book : B1){
+                if (title.equals(book.gettitle())) {
+                    return book;
+                }
+            }
+            return null;
+        }
+        public static Book2 searchBookbyID(int id){
+            for (Book2 book : B1){
+                if (id == book.getbook_id()) {
+                    return book;
+                }
+            }
+            return null;
+    
+        }
+    
+        //method for adding book
+    
+        public static void addBook(int ID, String title, String author, String genre, boolean availabilityStatus){
+            Book2 newBook = new Book2(ID, title, author, genre, availabilityStatus);
+            B1.add(newBook);
+            System.out.println("Book added successfully.") ;
+        }
+        //method for adding user
+    
+        public static void addUser(int ID, String name, int contactInfo){
+            User2 newUser = new User2(ID, name, contactInfo);
+            U1.add(newUser);
+            System.out.println("User added successfully.");
+        }
+
+    
+        //method to display book
+    
+        public static void displayBook(){
+            System.out.println("List of Books:");
+            for (Book2 book : B1) {
+                System.out.println("ID: " + book.getbook_id() + ", Title: " + book.gettitle() +
+                        ", Author: " + book.getauthor() + ", Genre: " + book.getgenre() +
+                        ", Availability: " + book.getavailabilityS());
+            }
+           
     }
     
-    //search for books by title or author
-
-    public ArrayList<Book> searchBooks(String title_author) {
-        ArrayList<Book> results = new ArrayList<>();
-        for (Book book : B1) {
-            if (book.gettitle().toLowerCase().contains(title_author.toLowerCase()) ||
-                    book.getauthor().toLowerCase().contains(title_author.toLowerCase())) {
-                results.add(book);
-            }
-        }
-        return results;
-    }
+        //error handling
     
-    // Method to return a book
-
-    public boolean returnBooks(int userID, int bookID) {
-        User user = getUserByID(userID);
-        if (user == null) {
-            return false; //user not found
-        }
-        Book B1 = getBookByID(bookID);
-        if (B1 == null || !user.getbooksBorrowed().contains(B1)) {
-            return false; //book not found or not borrowed by user
-        }
-        User.setbooksBorrowed(B1);
-        B1.setavailabilityS(true);
-        return true;
-    }
-
-    //check out a book to a user
-
-
-    public boolean checkoutBooks(int userID, int BOOKID) {
-        User user = getUserByID(userID);
-        if (user == null) {
-            return false;
-        }
-        Book book = getBookByID(BOOKID);
-        if (book == null || !(book).getavailabilityS()) {
-            return false; // Book not found or already checked out
-        }
-        User.setbooksBorrowed(book);
-        book.setavailabilityS(false);
-        return true;
-    }
-
-    //to get book by ID
-
-    private Book getBookByID(int BOOKID) {
-        for (Book book : B1) {
-            if (book.getbook_id() == BOOKID) {
-                return book;
+        public void lendBook(int id) {
+            boolean bookFound = false;
+            for (Book2 book : B1) {
+                if (book.getbook_id() == id) {
+                    System.out.println("Book \"" + book.gettitle() + "\" by " + book.getauthor() + " has been lent.");
+                    B1.remove(book);
+                    bookFound = true;
+                    break;
+                }
             }
-        }
-        return null;
-    }
-
-    //to get user by ID
-
-    private static User getUserByID(int user_id) {
-        for (User user : U1) {
-            if (user.getuser_id() == user_id) {
-                return user;
+            if (!bookFound) {
+                System.out.println("Sorry! Book not found.");
             }
-        }
-        return null;
     }
 
-    //display books
-    public void displayBooks() {
-        System.out.println("Books in the library:");
-        for (Book book : B1) {
-            System.out.println(book.getbook_id() + ": " + book.gettitle() + " by " + book.getauthor() +
-                    " - Genre: " + book.getgenre() + ", Available: " + (book.getavailabilityS() ? "Yes" : "No"));
-        }
-    }
-
-    public static void bookCheckOut(int userID, String bookName){
-        //this.borrowedBooks = new ArrayList<>();
-        for (Book book : B1){
-
-            if (userID == book.getbook_id() && bookName.equals(book.gettitle()) && book.getavailabilityS()){
-                System.out.println("Book borrowed successfully!");
-                book.setavailabilityS(false);
-                //book.setAvailabilityStatus(false);
-
-                //users.borrowedBooks(bookName);
-                getUserByID(userID).getbooksBorrowed().add(book);
-                return;
-            }
-        }
-        System.out.println("Unable to borrow the book. Please check user ID, book name or availability. Try again later:)");
-
-    }
-    public static Book searchBookbyTitle(String title){
-        for (Book book : B1){
-            if (title.equals(book.gettitle())) {
-                return book;
-            }
-        }
-        return null;
-    }
-    public static Book searchBookbyID(int id){
-        for (Book book : B1){
-            if (id == book.getbook_id()) {
-                return book;
-            }
-        }
-        return null;
-
-    }
-
-    //method for adding book
-
-    public static void addBook(int ID, String title, String author, String genre, boolean availabilityStatus){
-        Book newBook = new Book(ID, title, author, genre, availabilityStatus);
-        B1.add(newBook);
-        System.out.println("Book added successfully.") ;
-    }
-    //method for adding user
-
-    public static void addUser(int ID, String name, int contactInfo){
-        User newUser = new User(ID, name, contactInfo);
-        U1.add(newUser);
-        System.out.println("User added successfully.");
-    }
-
-    //method for returning book
-
-    public static void returnBook(int userID, String returnBook){
-        for (Book book : B1) {
-            if (userID == book.getbook_id() && returnBook.equals(book.gettitle())){
-                System.out.println("Book returned successfully by user id "+ userID + "  " + returnBook );
-                getUserByID(userID);
-                Book.getBorrowedBooks();
-                Book.getBorrowedBooks();
-                return;
-            }
-        }
-        System.out.println("Unable to return the book. Please check user ID, book name. Try again later:)");
-    }
-
-    //method to display book
-
-    public static void displayBook(){
-        System.out.println("List of Books:");
-        for (Book book : B1) {
-            System.out.println("ID: " + book.getbook_id() + ", Title: " + book.gettitle() +
-                    ", Author: " + book.getauthor() + ", Genre: " + book.getgenre() +
-                    ", Availability: " + book.getavailabilityS());
-        }
-       
-}
-
-    //error handling
-
-    public void lendBook(int id) {
-        boolean bookFound = false;
-        for (Book book : B1) {
-            if (book.getbook_id() == id) {
-                System.out.println("Book \"" + book.gettitle() + "\" by " + book.getauthor() + " has been lent.");
-                B1.remove(book);
-                bookFound = true;
-                break;
-            }
-        }
-        if (!bookFound) {
-            System.out.println("Sorry! Book not found.");
-        }
-}
 }
